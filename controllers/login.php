@@ -9,15 +9,14 @@ session_start();
 		$con=mysqli_connect('localhost','root','','cookaja/admin');
 		$db=mysqli_select_db($con,'cookaja/admin');
 		
-		$q="SELECT * FROM login WHERE id='$id' AND nama='$nama' AND password='$password'";
+		$q="SELECT * FROM user WHERE id='$id' AND nama='$nama' AND password='$password'";
 		
 		$result=mysqli_query($con,$q);
 		$ans=mysqli_num_rows($result);
 		if($ans>0)
 		{
-			echo"<script>alert('Halo Admin! Siap kerja rodi ya ...');</script>";
 			$_SESSION['username']=$nama;
-			echo"<script>window.open('Home.php','_parent');</script>";
+			echo"<script>window.open('inputresep.php','_parent');</script>";
 		}
 		else
 		{
