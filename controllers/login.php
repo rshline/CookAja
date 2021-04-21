@@ -16,7 +16,7 @@ session_start();
 		if($ans>0)
 		{
 			$_SESSION['username']=$nama;
-			echo"<script>window.open('inputresep.php','_parent');</script>";
+			echo"<script>window.open('index.php','_parent');</script>";
 		}
 		else
 		{
