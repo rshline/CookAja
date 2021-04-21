@@ -5,24 +5,24 @@
 	include_once 'config.php';
 
 	// Connect to server and select databse.
-	mysqli_connect("$host", "$username", "$password")or die("cannot connect"); 		
+	mysqli_connect("$host", "$nama", "$password")or die("cannot connect"); 		
 	mysqli_select_db("$cookaja")or die("cannot select DB");
 
 	// Define $myusername and $mypassword 
-	$myusername = $_POST['myusername']; 
-	$mypassword = $_POST['mypassword']; 
-	$myemail = $_POST['myemail']; 
+	$nama = $_POST['nama']; 
+	$password = $_POST['password']; 
+	$email = $_POST['email']; 
 	
 	// To protect MySQL injection
-	$myusername = stripslashes($myusername);
-	$mypassword = stripslashes($mypassword);
-	$myemail = stripslashes($myemail);	
-	$myusername = mysqli_real_escape_string($myusername);	
-	$mypassword = mysqli_real_escape_string($mypassword);
-	$myemail = mysqli_real_escape_string($myemail);
+	$nama = stripslashes($nama);
+	$password = stripslashes($password);
+	$email = stripslashes($email);	
+	$nama = mysqli_real_escape_string($nama);	
+	$password = mysqli_real_escape_string($password);
+	$email = mysqli_real_escape_string($email);
 //	Hashing the password using SHA1 and salt="batman is here"
-	$mypassword = sha1($mypassword.$salt);
-	$sql="SELECT * FROM $tbl_name WHERE email='$myemail'";		
+	$password = sha1($password.$salt);
+	$sql="SELECT * FROM $tbl_name WHERE email='$email'";		
 	$result=mysqli_query($sql);
 
 	$count=mysqli_num_rows($result);
@@ -32,10 +32,10 @@
 	else {
 	
 		
-		$sql = "INSERT INTO $tbl_name (`id`, `username`, `password`,`email`) VALUES (NULL,'$myusername', '$mypassword', '$myemail')";
+		$sql = "INSERT INTO $user (`id`, `username`, `password`,`email`) VALUES (NULL,'$nama', '$password', '$email')";
 		mysqli_query($sql) or die(mysqli_error());
-		$_SESSION['username'] = $myusername;
-		$_SESSION['password'] = $mypassword;
+		$_SESSION['nama'] = $nama;
+		$_SESSION['password'] = $password;
         echo "true";
    
 }
