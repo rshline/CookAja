@@ -9,6 +9,9 @@ class Database{
 	private $dbh;
 	private $stmt;
 
+
+	private static $instance = null;
+
 	public function __construct()
 	{
 		$dsn = 'mysql:host='. $this->host .';dbname='. $this->dbnm;
@@ -25,6 +28,12 @@ class Database{
 		}
 	}
 
+	public static function getInstance(){
+		if(self::$instance == null){
+			self::$instance = new Database();
+		return self::$instance;
+		}
+	}
 
 	public function query($query)
 	{
