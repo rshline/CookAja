@@ -2,7 +2,7 @@
 
 /**
  * Class Description
- * Menerapkan kelas user berdasarkan kelas diagram
+ * Menerapkan kelas User berdasarkan class diagram
  * 
  * @author Rizkyta Shainy A.
  */
@@ -102,7 +102,7 @@ class UserModel {
 	}
 
 	/**
-	 * Menhapus user dengan id tertentu dari database
+	 * Menghapus user dengan id tertentu dari database
 	 * @param id user
 	 * @return $this->db->rowCount() yaitu jumlah data setelah dilakukan DELETE, not null
 	 */

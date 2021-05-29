@@ -6,77 +6,30 @@
         private $bintang;
         private $id_user;
 
-        function __construct ($id = null, $ulasan, $bintang, $id_user)
+        private $table = 'ulasan_resep';
+        private $db;
+
+        function __construct ()
         {
-            $this->id = $id;
-            $this->ulasan = $ulasan;
-            $this->bintang = $bintang;
-            $this->id_user = $id_user;
+            $this->db = Database::getInstance();
         }
 
-        function getId()
+
+        function getAllUlasan()
         {
-            return $this->id;
+            $this->db->query("SELECT * FROM " . $this->table);
+		    return $this->db->resultSet();
         }
 
-        function setUlasan($new_ulasan)
-        {
-            $this->ulasan = $new_ulasan;
-        }
+        public function tambahUlasan($data){
+            $query = "INSERT INTO ulasan_resep VALUES(:ulasan, :bintang, :id_user)";
+            $this->db->query($query);
+            $this->db->bind('ulasan', $data['ulasan']);
+            $this->db->bind('bintang', $data['bintang']);
+            $this->db->bind('id_user', $data['id_user']);
 
-        function getUlasan()
-        {
-            return $this->ulasan;
-        }
-
-        function setBintang($new_bintang)
-        {
-            $this->bintang = $new_bintang;
-        }
-
-        function getBintang()
-        {
-            return $this->bintang;
-        }
-
-        function setId_user($new_id_user)
-        {
-            $this->id_user = $new_id_user;
-        }
-
-        function getId_user()
-        {
-            return $this->id_user;
-        }
-
-        function save()
-        {
-            $GLOBALS['cookaja']->exec("INSERT INTO reviews (ulasan, bintang, id_user) VALUES ('{$this->getUlasan()}', '{$this->getBintang()}', {$this->getId_user()};");
-            $this->id = $GLOBALS['cookaja']->lastInsertId();
-        }
-
-        static function getAll()
-        {
-            $returned_reviews = $GLOBALS['cookaja']->query("SELECT * FROM ulasan_resep ORDER BY id DESC;");
-
-            $reviews = array();
-            foreach($ulasan_resep as $ulasan) {
-                $id = $ulasan['id'];
-                $ulasan = $ulasan['ulasan'];
-                $bintang = $ulasan['bintang'];
-                $rating = $ulasan['rating'];
-                $id_user = $ulasan['id_user'];
-                $ulasan_resep = new Ulasan($id, $ulasan, $bintang, $id_user);
-                array_push($ulasan_resep, $ulasan);
-            }
-            return $ulasan;
-        }
-
-        static function deleteAll()
-        {
-            $GLOBALS['DB']->exec("DELETE FROM ulasan_resep;");
+            return $this->db->rowCount();
         }
 
 
     }
-?>

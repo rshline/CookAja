@@ -17,12 +17,15 @@
         private $tgl;
         private $berbayar;
 
+        private $table = 'resep';
+        private $db;
+
         /**
          * Constructor
          * Membuat object dari class Database baru 
          */
         public function __construct(){
-            $this->db = new Database;
+            $this->db = Database::getInstance();
         }
 
         /**
@@ -93,7 +96,3 @@
 		    return $this->db->resultSet();
         }
     }
-
-    
-
-?>
