@@ -23,9 +23,10 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
     <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
+	<script src="js/map.js"></script>
 </head><!--/head-->
 
-<body>
+<body onload="initMap();">
 	
 	<?php include('header.php');?> <!--header-->
 	<?php
@@ -201,12 +202,10 @@
 							
 						?>
 					</div><!--features_items-->
-					
 				</div>
 			</div>
 		</div>
 	</section>
-	
 	<?php include('footer.php');?> <!--Footer-->
 	
     <script src="js/jquery.js"></script>
@@ -215,6 +214,10 @@
 	<script src="js/price-range.js"></script>
     <script src="js/jquery.prettyPhoto.js"></script>
     <script src="js/main.js"></script>
+	<script 
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKP42gSfeM8dT7staZYjCCqDl-2iuGtws&callback=initMap&libraries=&v=weekly"
+      async
+    ></script>
 </body>
 </html>
 
