@@ -2,7 +2,7 @@
 	require_once "config.php";
 	session_start();
 	$id=$_GET["id"];
-	$sql="SELECT * FROM products WHERE P_Id='$id'";
+	$sql="SELECT * FROM products WHERE B_Id='$id'";
 	$result = mysqli_query($dbhandle,$sql);
 	$row=mysqli_fetch_array($result);
 	
@@ -12,7 +12,6 @@
 			$quantity 	=	$_POST['quantity'];
 			$date		=	date('Y-m-d');
 			$amount		=	$row["Price"]*$quantity;
-			$hargaAkhir =   $row["Price"] - ($potongan = ($row["Price"]*$row["discount"])/100);
 			$userId		=	$_SESSION["UserId"];
 			$P_Name		=	$row["P_Name"];
 			$address	=	$_SESSION["Address"];
@@ -79,14 +78,21 @@
 							<div class="col-sm-9">
 								<div class="product-information"><!--/product-information-->
 									<h2><b><?php echo $row["P_Name"];?></b></h2>
-									<p><b>Di Posting Oleh</b> : <i><?php echo $row["Made"];?></i></p>
-									<img src="images/product-details/rating.png" alt="">
+									<p><b>Promo Paket Hemat Soft Opening CookAja</b></p>
+									<p> <img src="images/product-details/rating.png" alt=""> </p>
 									<span>
+										<span> Rp.<?php echo $row["Price"];?>,00</del></span>
+											<label>Jumlah :</label>
+											<input type="number" min="1" max="100" value="1" name="quantity" />
+										    <button type="submit" name="addCart" class="btn btn-fefault cart">
+											<i class="fa fa-shopping-cart"></i>
+											Tambah ke Keranjang
+										</button>
 									</span>
 									<br>
-									<br>
-									<br>
-									<p><b>Bahan & Cara Masak</b></p><?php echo $row["Deskripsi"];?>
+									<p><b>Stock : </b><i><?php echo $row["Stock"];?></i></p>
+									<p><b>Best Seller</b>
+									<p><b>Deskripsi Produk</b></p><?php echo $row["Deskripsi"];?>
 									<br>
 
 <!--Code untuk Rating-->
@@ -181,7 +187,7 @@ function resetRating() {
 <?php
 //konfigurasi koneksi
 mysqli_connect ("localhost","root","");
-mysqli_select_db ($dbhandle,"ecommerce");
+mysqli_select_db ($dbhandle,"cookaja");
 
 //inisialisasi tanggal
 $tanggal = date ("Ymd");

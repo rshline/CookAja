@@ -23,10 +23,9 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
     <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
-	<script src="js/map.js"></script>
 </head><!--/head-->
 
-<body onload="initMap();">
+<body>
 	
 	<?php include('header.php');?> <!--header-->
 	<?php
@@ -68,10 +67,30 @@
 									<img src="images/home/SP.jpg" class="girl img-responsive" alt="" />									
 								</div>
 							</div>
-
 							<?php
 								while($row11=mysqli_fetch_array($result11)){
-									$url1="product-details.php?id=".$row11["P_Id"];
+									$url1="recipe-details.php?id=".$row11["P_Id"];
+									echo '<div class="item ">
+										<div class="col-sm-6">
+											<h1><span>C</span>ookaja New Recipe</h1>
+											<h2>'.$row11["RecipeName"].'</h2>
+											<p</p>';
+											if(@$_SESSION["Type"] != "admin"){
+												echo '<a class="btn btn-default get" href="'.$url1.'">Lihat Recipe Sekarang</a>';
+											}
+										echo '	
+										</div>
+										<div class="col-sm-6">
+											<img src="'.$row11["Image"].'" class="" width="400" height="350" alt="" />
+											
+										</div>
+									</div>';
+								}
+								
+							?>
+							<?php
+								while($row11=mysqli_fetch_array($result11)){
+									$url1="recipe-details.php?id=".$row11["P_Id"];
 									echo '<div class="item ">
 										<div class="col-sm-6">
 											<h1><span>C</span>ookaja New Recipe</h1>
@@ -113,6 +132,9 @@
 			<div class="row">
 				<div class="col-sm-3">
 					<div class="left-sidebar">
+						<h2>SALE</h2>
+						<h2><a href="index.php">PROMO PAKET HEMAT VIP</a></h2>
+
 						<h2>Kategori</h2>
 						<div class="panel-group category-products" id="accordian"><!--category-productsr-->
 							<?php
@@ -129,7 +151,6 @@
 										</div>';
 								}
 							?>
-
 						</div><!--/category-products-->
 					</div>
 				</div>
@@ -151,7 +172,57 @@
 						</div>
 						<?php
 							require_once "config.php";
+
+							if(isset($_GET["B_Id"])){
+								$categoryName = $_GET["B_Id"];
+								$sql ="SELECT * FROM products WHERE Category='$categoryName' order by B_Id desc";
+								$result = mysqli_query($dbhandle,$sql);
+							}
+							else{
+								$sql ="SELECT * FROM products";
+								
+								if (isset($_POST['search'])){
+									$search_term = $_POST['search_box'];
+									$sql .= " WHERE P_Name LIKE '%{$search_term}%'";
+								}else{
+									$sql .= " order by B_Id desc";
+								}
+								
+								$result = mysqli_query($dbhandle,$sql);
+							}
 							
+							if(mysqli_num_rows($result) == 0){
+								echo '<div class="col-sm-6">
+										<h2>Bundle Tidak Tersedia</h2>
+									</div>';
+							}else{
+								while($row=mysqli_fetch_array($result))
+								{
+									$url2="product-details.php?id=".$row["B_Id"];
+									$url1="editProduct.php?id=".$row["B_Id"];
+								 	
+									echo '<div class="col-sm-3">
+											<div class="product-image-wrapper">
+												<div class="single-products">
+														<div class="productinfo text-center">
+															<img src="'.$row["Image"].'" alt="" width="125" height="175" />
+															<p><h2>'.$row["P_Name"].'</h2></p>';
+															
+															if(@$_SESSION["Type"] == "admin"){
+																echo '<a href="'.$url1.'" class="btn btn-default add-to-cart"><i class=""></i>Edit Paket</a>';
+															}else{
+																echo '<a href="'.$url2.'" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Lihat PROMO PAKET</a>';
+															}
+															echo '
+														</div>
+														<img src="images/home/new.png" class="new" alt="" />
+												</div>
+											</div>
+										</div>';
+								}
+							}
+							
+
 							if(isset($_GET["id"])){
 								$categoryName = $_GET["id"];
 								$sql ="SELECT * FROM recipe WHERE Category='$categoryName' order by P_Id desc";
@@ -171,7 +242,7 @@
 							}
 							if(mysqli_num_rows($result) == 0){
 								echo '<div class="col-sm-6">
-										<h2>Resep Tidak Tersedia</h2>
+										<h2>Resep Tidak ditemukan </h2>
 									</div>';
 							}else{
 								while($row=mysqli_fetch_array($result))
@@ -202,10 +273,12 @@
 							
 						?>
 					</div><!--features_items-->
+					
 				</div>
 			</div>
 		</div>
 	</section>
+	
 	<?php include('footer.php');?> <!--Footer-->
 	
     <script src="js/jquery.js"></script>
@@ -214,10 +287,6 @@
 	<script src="js/price-range.js"></script>
     <script src="js/jquery.prettyPhoto.js"></script>
     <script src="js/main.js"></script>
-	<script 
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKP42gSfeM8dT7staZYjCCqDl-2iuGtws&callback=initMap&libraries=&v=weekly"
-      async
-    ></script>
 </body>
 </html>
 

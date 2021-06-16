@@ -51,9 +51,9 @@
 					<tr class="active">
 						<th >Gambar</th>
 						<th >Nama</th>				  
-						<th >Kategori</th>
-						
+
 						<th >Hapus</th>
+						<th >Edit</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -62,7 +62,7 @@
 						require_once "config.php";
 						
 						//$id=$_SESSION['id'];
-						$sql ="SELECT * FROM products order by P_Id desc";
+						$sql ="SELECT * FROM products order by B_Id desc";
 						
 						$result = mysqli_query($dbhandle,$sql);
 						
@@ -71,13 +71,15 @@
 							echo '<tr >';
 							echo '<td><img src="'.$row["Image"].'" width="100" height="100" alt="image not found"></td>'; 	
 
-							$url1="editProduct.php?id=".$row["P_Id"];
+							$url1="editProduct.php?id=".$row["B_Id"];
 							echo '<td>'.'<a href='. $url1.'>'.$row["P_Name"].'</a>'.'</td>';
 							
-							echo '<td>'.$row["Category"].'</td>'; 
 							
-							$url2="deleteProduct.php?id=".$row["P_Id"];
+							$url2="deleteProduct.php?id=".$row["B_Id"];
 							echo '<td>'.'<a href='. $url2.'>Delete</a>'.'</td>';
+
+							$url3="editProduct.php?id=".$row["B_Id"];
+							echo '<td>'.'<a href='. $url3.'>Edit</a>'.'</td>';
 							echo '</tr>';
 						}
 						//mysql_close($db);		

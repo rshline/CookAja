@@ -32,7 +32,7 @@
 			}
 			else
 			{
-				echo "Invalid Username or Password !!";
+				echo '<script> alert("Invalid Username or Password !!!"); window.location = "../login.php"; </script>';
 			}
 	}
 	if(isset($_POST['signup']))

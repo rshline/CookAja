@@ -18,7 +18,7 @@
 	$row=mysql_fetch_array($query);
 	unlink($row["Image"]);
 	*/
-	$result = "Delete from products where P_Id='$id'";
+	$result = "Delete from products where B_Id='$id'";
 	$query = mysqli_query($dbhandle,$result);
 	
 	header('Location: productList.php');

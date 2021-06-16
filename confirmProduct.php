@@ -32,8 +32,6 @@
 	$query1 = mysqli_query($dbhandle,$result);
 	
 	
-	
-	
 	$result = "UPDATE orders SET StatusAdmin='ok' WHERE O_Id='$id'";
 	$query = mysqli_query($dbhandle,$result);
 	

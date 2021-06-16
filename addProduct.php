@@ -15,9 +15,7 @@
 	require_once "config.php";
 	
 	if(isset($_POST["addProduct"])){
-		$productName = $_POST["productName"];
-		$category = $_POST["category"];
-		
+		$P_Name = $_POST["P_Name"];
 		
 		$temp = explode(".", $_FILES["image"]["name"]);
 		$extension = end($temp);
@@ -25,15 +23,19 @@
 		$filename = basename($_FILES["image"]["name"]);
 		@$filename = date(d_m_y_h_i_s)."_".$filename;
 		
-		$target_dir = "images/products/";
+		$target_dir = "images/home/";
 		$target_file = $target_dir.$filename;
 		$tempName = $_FILES["image"]["tmp_name"];
 		move_uploaded_file($tempName, $target_file);
-		
-		$result1 = "insert into  products(P_Name,Category) Values('$productName','$category')";
+
+		$Stock = $_POST["Stock"];
+		$Price = $_POST["Price"];
+		$Deskripsi = $_POST["Deskripsi"];
+
+		$result1 = "insert into products(P_Name,Image,Stock,Price,Deskripsi) Values('$P_Name','$target_file','$Stock','$Price','$Deskripsi')";
 		$sql= mysqli_query($dbhandle,$result1);
 		
-		echo "insert ok";
+		echo "Berhasil ditambahkan";
 	}
 ?>
 
@@ -83,45 +85,25 @@
 						<fieldset>
 							<div class="form-group">
 								Product Name 
-								<input class="form-control"  name="productName" type="text" value="" required/>
+								<input class="form-control"  name="P_Name" type="text" value="" required/>
 							</div>
 							
-							<div class="form-group">
-								Category
-								<select name="category" class="form-control" required/>
-								<?php 
-									$sql = mysqli_query($dbhandle,"SELECT Name FROM categories ORDER BY Name");
-									while ($row = mysqli_fetch_array($sql)){
-										echo '<option value="'.$row['Name'].'">'. $row['Name'] .'</option>';
-									}
-								?>
-								</select>
-							</div>
 							
 							<div class="form-group">
 								Stock 
-								<input class="form-control"  name="stock" type="number" value="" required/>
+								<input class="form-control"  name="Stock" type="number" value="" required/>
 							</div>
 							
 							<div class="form-group">
 								Price
-								<input class="form-control"  name="price" type="number" value="" required/>
+								<input class="form-control"  name="Price" type="number" value="" required/>
 							</div>
 							
 							<div class="form-group">
-								Weight
-								<input class="form-control"  name="weight" type="number" value="">
+								Deskripsi 
+								<input class="form-control"  name="Deskripsi" type="text" value="" required/>
 							</div>
-							
-							<div class="form-group">
-								Width
-								<input class="form-control"  name="width" type="number" value="">
-							</div>
-							
-							<div class="form-group">
-								Height
-								<input class="form-control"  name="height" type="number" value="">
-							</div>
+
 							
 							<label class="btn btn-default" for="my-file-selector">
 								<input id="my-file-selector" name="image" id="image" type="file" style="display:none;" required/>

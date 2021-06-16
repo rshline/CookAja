@@ -157,7 +157,7 @@ function resetRating() {
 <?php
 //konfigurasi koneksi
 mysqli_connect ("localhost","root","");
-mysqli_select_db ($dbhandle,"ecommerce");
+mysqli_select_db ($dbhandle,"cookaja");
 
 //inisialisasi tanggal
 $tanggal = date ("Ymd");

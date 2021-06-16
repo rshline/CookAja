@@ -16,7 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>keranjang</title>
+    <title>Purchase History</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/prettyPhoto.css" rel="stylesheet">
@@ -43,21 +43,21 @@
 			<div class="breadcrumbs">
 				<ol class="breadcrumb">
 				  <li><a href="index.php">Home</a></li>
-				  <li class="active">Keranjang Belanjaan</li>
+				  <li class="active">Purchase History</li>
 				</ol>
 			</div>
 			<div class="review-payment">
-				<h2>Review & Pembayaran</h2>
+				<h2>History Pembelian & Pembayaran</h2>
 			</div>
 			<div class="table-responsive cart_info">
 				<table class="table table-condensed">
 					<thead>
 						<tr class="cart_menu">
-							<td class="image">Item</td>
+							<td class="image">Produk</td>
 							<td class="description"></td>
 							<td class="price">Harga</td>
-							<td class="quantity">Kuantitas</td>
-							<td class="total">Total</td>
+							<td class="quantity">Jumlah Paket</td>
+							<td class="total">Rincian Harga</td>
 							<td></td>
 						</tr>
 					</thead>
@@ -65,7 +65,7 @@
 					<?php
 						require_once "config.php";
 						$userId=$_SESSION['UserId'];
-						$sql="SELECT * FROM orders WHERE User_Id='$userId' AND Status='checked' AND StatusAdmin='notOk'";
+						$sql="SELECT * FROM orders WHERE User_Id='$userId' AND Status='Checked'";
 						$result = mysqli_query($dbhandle,$sql);
 						
 						$cartTotal=0;
@@ -91,9 +91,6 @@
 									<td class="cart_total">
 										<p class="cart_total_price">Rp. '.$row["Amount"].',00</p>
 									</td>
-									<td class="cart_delete">
-										<a class="cart_quantity_delete" href="'.$url2.'"><i class="fa fa-times"></i></a>
-									</td>
 								</tr>';
 						};
 					?>
@@ -107,17 +104,14 @@
 	<section id="do_action">
 		<div class="container">
 			<div class="heading">
-				<h3>Total</h3>
+				<h3>Jumlah Pembayaran</h3>
 			</div>
 			<div class="row">
 				
 				<div class="col-sm-6">
 					<div class="total_area">
 						<ul>
-							<li>Sub Total Keranjang Belanjaan <span>Rp <?php echo $cartTotal;?>,00</span></li>
-							<li>Ongkos Kirim <span>Rp 25.000,00</span></li>
-							<li>Diskon <span>0 %</span></li>
-							<li>Total <span><?php echo $cartTotal+25000;?>,00</span></li>
+							<li>Total Pembayaran dari Transaksi <span>Rp <?php echo $cartTotal;?>,00</span></li>
 						</ul>
 							
 							

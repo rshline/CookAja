@@ -59,7 +59,7 @@
 					
 						require_once "config.php";
 						
-						$sql ="SELECT distinct User_Id FROM orders WHERE StatusAdmin='notOk' AND Status='notChecked'";
+						$sql ="SELECT distinct User_Id FROM orders WHERE Status='Checked'";
 						$result = mysqli_query($dbhandle,$sql);
 						$userId="";
 						

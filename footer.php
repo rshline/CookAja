@@ -71,7 +71,8 @@
                     </div>
                     <div class="col-sm-3">
                         <div class="address">
-					        <div id="map" style="width: 300px; height: 200px;"></div>
+                            <img src="images/home/map.png" alt="" />
+                            <p>Temukan Kami hanya di Indonesia</p>
                         </div>
                     </div>
                 </div>
@@ -111,7 +112,7 @@
         <div class="footer-bottom">
             <div class="container">
                 <div class="row">
-                    <p class="pull-left">Copyright ï¿½ 2021 CookAja | All rights reserved.</p>
+                    <p class="pull-left">Copyright © 2021 CookAja | All rights reserved.</p>
                     <p class="pull-right">Designed by <span><a target="_blank" href="http://www.themeum.com">Wordpress</a></span></p>
                 </div>
             </div>

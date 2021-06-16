@@ -17,14 +17,10 @@
 	if(isset($_POST['update']))
 		{
 			$id=$_GET['id'];
-			$productName = $_POST["productName"];
-			$category = $_POST["category"];
-			$stock = $_POST["stock"];
-			$price = $_POST["price"];
-			$width = $_POST["width"];
-			$weight = $_POST["weight"];
-			$height = $_POST["height"];
-			
+			$P_Name = $_POST["P_Name"];
+			$Stock = $_POST["Stock"];
+			$Price = $_POST["Price"];
+
 			require_once "config.php";
 			
 			$temp = explode(".", $_FILES["image"]["name"]);
@@ -39,13 +35,13 @@
 				
 			if($filename == null){
 				
-				$result = "update products set P_Name='$productName', Category='$category', Stock='$stock', Price='$price', Width='$width', Weight='$weight', Height='$height' where P_Id='$id'";
+				$result = "update products set P_Name='$P_Name', Stock='$Stock', Price='$Price' where B_Id='$id'";
 				$sql = mysqli_query($dbhandle,$result);
 				
 			}
 			else{
 				//delete previous image -------
-				$result = "Select * from products where P_Id='$id'";
+				$result = "Select * from products where B_Id='$id'";
 				$query = mysqli_query($dbhandle,$result);
 				$row=mysqli_fetch_array($query);
 				unlink($row["Image"]);
@@ -53,7 +49,7 @@
 				
 				move_uploaded_file($tempName, $target_file);
 				
-				$result = "update products set P_Name='$productName', Category='$category', Stock='$stock', Price='$price', Width='$width', Weight='$weight', Height='$height', Image='$target_file' where P_Id='$id'";
+				$result = "update products set P_Name='$P_Name', Stock='$Stock', Price='$Price' where B_Id='$id'";
 				$sql = mysqli_query($dbhandle,$result);
 			}
 			
@@ -63,7 +59,7 @@
 		{
 			require_once "config.php";
 			
-			$result = "Select * from products where P_Id='$id'";
+			$result = "Select * from products where B_Id='$id'";
 			$query = mysqli_query($dbhandle,$result);
 			
 			$row=mysqli_fetch_array($query);
@@ -117,45 +113,19 @@
 					<form enctype="multipart/form-data" role="form" method="POST" action="#">
 						<fieldset>
 							<div class="form-group">
-								Product Name 
-								<input class="form-control"  name="productName" type="text" value="<?php echo $row["P_Name"];?>" required/>
+								Nama Produk 
+								<input class="form-control"  name="P_Name" type="text" value="<?php echo $row["P_Name"];?>" required/>
 							</div>
 							
-							<div class="form-group">
-								Category
-								<select name="category" class="form-control" required/>
-								<?php 
-									$sql12 = mysqli_query($dbhandle,"SELECT Name FROM categories ORDER BY Name");
-									while ($row12 = mysqli_fetch_array($sql12)){
-										echo '<option value="'.$row12['Name'].'">'. $row12['Name'] .'</option>';
-									}
-								?>
-								</select>
-							</div>
 							
 							<div class="form-group">
 								Stock 
-								<input class="form-control"  name="stock" type="number" value="<?php echo $row["Stock"];?>" >
+								<input class="form-control"  name="Stock" type="number" value="<?php echo $row["Stock"];?>" >
 							</div>
 							
 							<div class="form-group">
 								Price
-								<input class="form-control"  name="price" type="number" value="<?php echo $row["Price"];?>" required/>
-							</div>
-							
-							<div class="form-group">
-								Weight
-								<input class="form-control"  name="weight" type="number" value="<?php echo $row["Weight"];?>">
-							</div>
-							
-							<div class="form-group">
-								Width
-								<input class="form-control"  name="width" type="number" value="<?php echo $row["Width"];?>">
-							</div>
-							
-							<div class="form-group">
-								Height
-								<input class="form-control"  name="height" type="number" value="<?php echo $row["Height"];?>">
+								<input class="form-control"  name="Price" type="number" value="<?php echo $row["Price"];?>" required/>
 							</div>
 							
 							<img src="<?php echo $row["Image"];?>" width="100" height="100" alt="image not found">

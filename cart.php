@@ -41,10 +41,7 @@
 	<?php
 		if(isset($_POST["checkOut"])){
 			require_once "config.php";
-			$userId=$_SESSION['UserId'];
-			$sql="UPDATE orders SET Status='checked' WHERE User_Id='$userId'";
-			mysqli_query($dbhandle,$sql);
-			header('location:checkout.php');
+			header('location:pembayaran.php');
 		}
 	?>
 	
@@ -63,10 +60,10 @@
 				<table class="table table-condensed">
 					<thead>
 						<tr class="cart_menu">
-							<td class="image">Item</td>
+							<td class="image">Produk</td>
 							<td class="description"></td>
 							<td class="price">Harga</td>
-							<td class="quantity">Kuantitas</td>
+							<td class="quantity">Jumlah</td>
 							<td class="total">Total</td>
 							<td></td>
 						</tr>
@@ -77,11 +74,11 @@
 						$userId=$_SESSION['UserId'];
 						$sql="SELECT * FROM orders WHERE User_Id='$userId' AND Status='notChecked'";
 						$result = mysqli_query($dbhandle,$sql);
-						
+					
 						$cartTotal=0;
-						
+
 						while($row=mysqli_fetch_array($result)){
-							
+					
 							$cartTotal=$cartTotal+$row["Amount"];
 							$url2="deleteProductToCart.php?id=".$row["O_Id"];
 							echo '<tr>
@@ -96,14 +93,14 @@
 										<p>Rp. '.$row["Amount"]/$row["Quantity"].',00</p>
 									</td>
 									<td class="cart_price">
-										<p>'.$row["Quantity"].' buah</p>
+										<input type="number" value="'.$row['Quantity'].'" name="jumlah" min="1" max="100" style="margin-left:-1vw"
 									</td>
 									<td class="cart_total">
 										<p class="cart_total_price">Rp. '.$row["Amount"].',00</p>
 									</td>
 									<td class="cart_delete">
 										<a class="cart_quantity_delete" href="'.$url2.'"><i class="fa fa-times"></i></a>
-									</td>
+									</td> 
 								</tr>';
 						};
 					?>
@@ -120,19 +117,19 @@
 	<section id="do_action">
 		<div class="container">
 			<div class="heading">
-				<h3>Apa yang akan kamu lakukan Selanjutnya ?</h3>
-				<p>Jika kamu punya kode diskon atau reward points kamu dapat menukarkannya disini untuk mendapatkan potongan harga.</p>
+				<h3>Yakin nggak mau checkout, kak ?</h3>
+				<p>Garansi 100%!! Dapatkan kode diskon atau reward points tukarkan saat belanja di supermarket terdekat!</p>
 			</div>
 			
 			
 		<div class="row">
-			<form action="proses_pembayaran.php" method="POST">		
+			<form action="cart.php" method="POST">		
 				<div class="col-sm-6">
 					<div class="total_area">
 						<ul>
 							<li>Sub Total Keranjang Belanjaan<span>Rp. <?php echo $cartTotal;?>,00</span></li>
-							<li>Ongkos Kirim ke Seluruh Indonesia<span>Rp. 10.000,00</span></li>
-							<li>Total <span>Rp <input type="text" name="totalharga" readonly="readonly" value="<?php echo $cartTotal+10000;?>"></span></li>
+							<li>Gratis Ongkos Kirim ke Seluruh Indonesia<span>FREE</span></li>
+							<li>Total <span>Rp <input type="text" name="totalharga" readonly="readonly" value="<?php echo $cartTotal;?>"></span></li>
 						</ul>
 							<input type="submit" name="checkOut" value="Check Out" class="btn btn-default update" href="">
 						</form>
@@ -143,7 +140,6 @@
 	</section><!--/#do_action-->
 
 	<?php include('footer.php');?> <!--Footer-->
-	
 
 
     <script src="js/jquery.js"></script>

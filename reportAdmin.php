@@ -175,8 +175,8 @@
 								
 								echo '</tr>';
 								
-								@$totalQuantity = $rowForTotal["totalQuantity"];
-								@$totalAmount = $rowForTotal["totalAmount"];
+								@$totalQuantity += $rowForTotal["totalQuantity"];
+								@$totalAmount += $rowForTotal["totalAmount"];
 								
 							}
 						}
