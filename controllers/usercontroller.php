@@ -28,6 +28,14 @@
 					echo '<script> window.location.href = "../index.php"</script>';
 					
 				}
+
+				if($_SESSION["Type"] == "vip"){
+					header('Location: ../index.php');
+				}else{
+				
+					echo '<script> window.location.href = "../index.php"</script>';
+					
+				}
 				
 			}
 			else

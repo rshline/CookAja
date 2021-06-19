@@ -7,7 +7,7 @@
 	$row=mysqli_fetch_array($result);
 	
 	if(isset($_POST["addCart"])){
-		if($_SESSION["Type"] == "user"){
+		if($_SESSION["Type"] == "user" OR $_SESSION["Type"] == "vip"){
 			$id			=	$_GET["id"];
 			$quantity 	=	$_POST['quantity'];
 			$date		=	date('Y-m-d');
@@ -61,33 +61,50 @@
 	<?php include('header.php');?> <!--header-->
 	
 	<section>
-	
-	
+
 		<div class="container">
-		
+
 			<div class="row">
-				
+
 				<div class="col-sm-12 padding-right">
 					<div class="product-details"><!--product-details-->
-						<div class="col-sm-3">
+						<div class="col-sm-4">
 							<div class="view-product">
 								<img src="<?php echo $row["Image"];?>" alt="" />
 							</div>
 						</div>
+
 						<form action="#" method="POST">
-							<div class="col-sm-9">
+							<div class="col-sm-8">
 								<div class="product-information"><!--/product-information-->
 									<h2><b><?php echo $row["P_Name"];?></b></h2>
 									<p><b>Promo Paket Hemat Soft Opening CookAja</b></p>
 									<p> <img src="images/product-details/rating.png" alt=""> </p>
 									<span>
-										<span> Rp.<?php echo $row["Price"];?>,00</del></span>
-											<label>Jumlah :</label>
-											<input type="number" min="1" max="100" value="1" name="quantity" />
-										    <button type="submit" name="addCart" class="btn btn-fefault cart">
-											<i class="fa fa-shopping-cart"></i>
-											Tambah ke Keranjang
-										</button>
+										<?php
+										$discount = 30;
+										$potongan = ($row['Price']*30/100);
+										$hargaAkhir = $row['Price'] - $potongan;
+
+										if(@$_SESSION["Type"] == "user"){
+										echo '<h2>Rp '.$row["Price"].',00</h2>';
+										echo '<label>Jumlah :</label>';
+										echo '<input type="number" min="1" max="100" value="1" name="quantity" />';
+										echo '<button type="submit" name="addCart" class="btn btn-fefault cart">';
+										echo '<i class="fa fa-shopping-cart"></i>';
+										echo 'Tambah ke Keranjang';
+										echo '</button>';
+
+										} if(@$_SESSION["Type"] == "vip"){
+										echo '<h2><del>Rp '.$row["Price"].',00</del><br>Rp. '.$hargaAkhir.',00</h2> <p>Diskon <b>'.$discount.'</b> %</p></h2>';
+										echo '<label>Jumlah :</label>';
+										echo '<input type="number" min="1" max="100" value="1" name="quantity" />';
+										echo '<button type="submit" name="addCart" class="btn btn-fefault cart">';
+										echo '<i class="fa fa-shopping-cart"></i>';
+										echo 'Tambah ke Keranjang';
+										echo '</button>';
+										}
+										?>
 									</span>
 									<br>
 									<p><b>Stock : </b><i><?php echo $row["Stock"];?></i></p>

@@ -46,13 +46,14 @@
 				
 				<div class="col-sm-12 padding-right">
 					<div class="product-details"><!--product-details-->
-						<div class="col-sm-3">
+						<div class="col-sm-4">
 							<div class="view-product">
 								<img src="<?php echo $row["Image"];?>" alt="" />
 							</div>
 						</div>
 						<form action="#" method="POST">
-							<div class="col-sm-9">
+							<div class="col-sm-8">
+
 								<div class="product-information"><!--/product-information-->
 									<h2><b><?php echo $row["RecipeName"];?></b></h2>
 									<p><b>Di Posting Oleh</b> : <i><?php echo $row["Made"];?></i></p>

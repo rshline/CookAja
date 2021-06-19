@@ -47,7 +47,13 @@
 										echo '<li><a href="checkout.php"><i class="fa fa-crosshairs"></i> Purchase History</a></li>';
 										echo '<li><a href="cart.php"><i class="fa fa-shopping-cart"></i> Keranjang</a></li>';
 									}
-									else{
+									if($_SESSION["Type"] == "vip"){ 
+										echo "Hello VIP's, ".'<b>'.$_SESSION["UserName"].'</b>';
+										echo '<li><a href="userAccount.php"><i class="fa fa-user"></i> My Account</a></li>';
+										echo '<li><a href="checkout.php"><i class="fa fa-crosshairs"></i> Purchase History</a></li>';
+										echo '<li><a href="cart.php"><i class="fa fa-shopping-cart"></i> Keranjang</a></li>';
+									}
+									if($_SESSION["Type"] == "admin"){
 										echo '<li><a href="recipeList.php"><i class="fa fa-user"></i>Admin CookAja</a></li>';
 									}
 								}

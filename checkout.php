@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	if($_SESSION["Type"] == "user"){
+	if($_SESSION["Type"] == "user" OR $_SESSION["Type"] == "vip"){
 		
 	}
 	else{

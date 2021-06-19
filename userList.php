@@ -56,6 +56,7 @@
 						<th >Alamat</th>
 						<th >Tipe</th>
 						<th >Delete</th>
+						<th >Edit</th>
 						
 						
 					</tr>
@@ -83,7 +84,22 @@
 							if($row["Type"] == "user"){
 								$url2="deleteUser.php?id=".$row["UserId"];
 								echo '<td>'.'<a href='. $url2.'>Delete</a>'.'</td>';
+							}
+
+							if($row["Type"] == "user"){
+								$url2="editUser.php?id=".$row["UserId"];
+								echo '<td>'.'<a href='. $url2.'>Edit</a>'.'</td>';
 								echo '</tr>';
+							}
+
+							if($row["Type"] == "vip"){
+								$url2="deleteUser.php?id=".$row["UserId"];
+								echo '<td>'.'<a href='. $url2.'>Delete</a>'.'</td>';
+							}
+
+							if($row["Type"] == "vip"){
+								$url2="editUser.php?id=".$row["UserId"];
+								echo '<td>'.'<a href='. $url2.'>Edit</a>'.'</td>';
 							}
 						}
 							

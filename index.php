@@ -57,14 +57,18 @@
 									<p><b>Segera Berlangganan khusus untuk user VIP</b></p>
 									<p><b>Dapatkan Banyak Diskon hanya di <i>CookAja</i></b></p>
 									<?php
-										if(@$_SESSION["Type"] != "admin"){
+										if(@$_SESSION["Type"] == "user"){
 											echo '<a class="btn btn-default get" href="login.php">Langganan Sekarang</a>';
+										}
+
+										if(@$_SESSION["Type"] == "vip"){
+											echo '<a class="btn btn-default get" href="login.php">Check Promo lainnya Sekarang</a>';
 										}
 									?>
 									
 								</div>
 								<div class="col-sm-6">
-									<img src="images/home/SP.jpg" class="girl img-responsive" alt="" />									
+									<img src="images/home/bundle2.png" class="girl img-responsive" alt="" />									
 								</div>
 							</div>
 							<?php
@@ -200,7 +204,10 @@
 								{
 									$url2="product-details.php?id=".$row["B_Id"];
 									$url1="editProduct.php?id=".$row["B_Id"];
-								 	
+									$discount = 30;
+									$potongan = ($row['Price']*30/100);
+									$hargaAkhir = $row['Price'] - $potongan;
+								 
 									echo '<div class="col-sm-3">
 											<div class="product-image-wrapper">
 												<div class="single-products">
@@ -210,6 +217,11 @@
 															
 															if(@$_SESSION["Type"] == "admin"){
 																echo '<a href="'.$url1.'" class="btn btn-default add-to-cart"><i class=""></i>Edit Paket</a>';
+
+															}if(@$_SESSION["Type"] == "vip"){
+																echo'<h2><del>Rp '.$row["Price"].',00</del><br>Rp. '.$hargaAkhir.',00</h2>
+																<p>Diskon <b>'.$discount.'</b> %</p>';
+																echo '<a href="'.$url2.'" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>BELI PAKET</a>';
 															}else{
 																echo '<a href="'.$url2.'" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Lihat PROMO PAKET</a>';
 															}
@@ -242,15 +254,18 @@
 							}
 							if(mysqli_num_rows($result) == 0){
 								echo '<div class="col-sm-6">
-										<h2>Resep Tidak ditemukan </h2>
+										<h2 align="center">..............................</h2>
+										<h2 align="center">Resep Tidak ditemukan </h2>
+										<h2 align="center">..............................</h2>
 									</div>';
 							}else{
 								while($row=mysqli_fetch_array($result))
 								{
+									$url3="recipe-vip.php?id=".$row["P_Id"];
 									$url2="recipe-details.php?id=".$row["P_Id"];
 									$url1="editRecipe.php?id=".$row["P_Id"];
 								 	
-									echo '<div class="col-sm-4">
+									echo '<div class="col-sm-3">
 											<div class="product-image-wrapper">
 												<div class="single-products">
 														<div class="productinfo text-center">
@@ -259,6 +274,8 @@
 															
 															if(@$_SESSION["Type"] == "admin"){
 																echo '<a href="'.$url1.'" class="btn btn-default add-to-cart"><i class=""></i>Edit Resep</a>';
+															}if(@$_SESSION["Type"] == "vip"){
+																echo '<a href="'.$url3.'" class="btn btn-default add-to-cart"><i class=""></i>Lihat Resep</a>';
 															}else{
 																echo '<a href="'.$url2.'" class="btn btn-default add-to-cart"><i class=""></i>Lihat Resep</a>';
 															}
